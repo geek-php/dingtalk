@@ -1,6 +1,6 @@
 {
     "name": "geek/dingtalk",
-    "description": "短信SDK",
+    "description": "钉钉SDK",
     "type": "library",
     "homepage": "http://github.com/geek/dingtalk",
     "keywords": [
