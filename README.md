@@ -1,5 +1,5 @@
 # dingtalk-sdk
-钉钉开发文档之服务端SDK
+钉钉企业开发服务端SDK
 
 ![build=passing][ico-build]
 [![Latest Version on Packagist][ico-version]][link-packagist]
