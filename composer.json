@@ -1,0 +1,26 @@
+{
+    "name": "geek/dingtalk",
+    "description": "短信SDK",
+    "type": "library",
+    "homepage": "http://github.com/geek/dingtalk",
+    "keywords": [
+        "dingtalk",
+        "dingtalk-sdk",
+        "sdk"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "dingtalk",
+            "email": "yjc@52fhy.com"
+        }
+    ],
+    "require": {
+        "php":">=7.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Geek\\Dingtalk\\": "src"
+        }
+    }
+}
