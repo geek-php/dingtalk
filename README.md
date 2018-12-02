@@ -30,6 +30,8 @@ SDK需要配置：
 ``` 
 corp_id
 secret
+ding_token
+encoding_aes_key
 ```
 
 使用示例：
@@ -37,8 +39,6 @@ secret
 $dingtalk = new \Geek\DingTalk([
     'corp_id' => '',
     'secret' => '',
-    'ding_token ' => '',
-    'encoding_aes_key  ' => '',
 ]);
 
 //获取部门列表

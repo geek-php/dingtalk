@@ -25,31 +25,34 @@ class Signature
      * @param $plain
      * @param $timeStamp
      * @param $nonce
+     * @return State
      * @throws \Exception
      */
     public function encryptMsg($plain, $timeStamp, $nonce)
     {
+        $state = State::getInstance();
+
         $aes_key = $this->conf['encoding_aes_key'] ?: '';
         $corp_id = $this->conf['corp_id'] ?: '';
         $token = $this->conf['ding_token'] ?: '';
 
         if (!$aes_key) {
-            throw new \Exception('miss config encoding_aes_key', __LINE__);
+            return $state->setErrorNo(__LINE__)->setErrorMsg('miss config dingding:encoding_aes_key');
         }
 
         if (!$corp_id) {
-            throw new \Exception('miss config corp_id', __LINE__);
+            return $state->setErrorNo(__LINE__)->setErrorMsg('miss config dingding:corp_id');
         }
 
         if (!$token) {
-            throw new \Exception('miss config ding_token', __LINE__);
+            return $state->setErrorNo(__LINE__)->setErrorMsg('miss config dingding:ding_token');
         }
 
         $crypt = new Crypt($aes_key, $corp_id);
 
         $encrypt_msg = $crypt->encrypt($plain);
         if (!$encrypt_msg) {
-            throw new \Exception('encrypt fail', __LINE__);
+            return $state->setErrorNo(__LINE__)->setErrorMsg('encrypt fail');
         }
 
         if (!$timeStamp) {
@@ -58,7 +61,7 @@ class Signature
 
         $verify_signature = $this->getSHA1($token, $timeStamp, $nonce, $encrypt_msg);
         if (!$verify_signature) {
-            throw new \Exception('signature fail', __LINE__);
+            return $state->setErrorNo(__LINE__)->setErrorMsg('signature fail');
         }
 
         $data = json_encode(array(
@@ -68,7 +71,7 @@ class Signature
             "nonce" => $nonce
         ));
 
-        return $data;
+        return $state->setData($data);
     }
 
     /**
@@ -83,39 +86,41 @@ class Signature
      */
     public function decryptMsg($signature, $timestamp, $nonce, $encrypt_msg)
     {
+        $state = State::getInstance();
+        
         $aes_key = $this->conf['encoding_aes_key'] ?: '';
         $corp_id = $this->conf['corp_id'] ?: '';
         $token = $this->conf['ding_token'] ?: '';
 
         if (strlen($aes_key) != 43) {
-            throw new \Exception('illegal encoding_aes_key', __LINE__);
+            return $state->setErrorNo(__LINE__)->setErrorMsg('illegal encoding_aes_key');
         }
 
         if (!$corp_id) {
-            throw new \Exception('miss config corp_id', __LINE__);
+            return $state->setErrorNo(__LINE__)->setErrorMsg('miss config dingding:corp_id');
         }
 
         if (!$token) {
-            throw new \Exception('miss config ding_token', __LINE__);
+            return $state->setErrorNo(__LINE__)->setErrorMsg('miss config dingding:ding_token');
         }
 
         $verify_signature = $this->getSHA1($token, $timestamp, $nonce, $encrypt_msg);
         if (!$verify_signature) {
-            throw new \Exception('signature fail', __LINE__);
+            return $state->setErrorNo(__LINE__)->setErrorMsg('signature fail');
         }
 
         if ($verify_signature != $signature) {
-            throw new \Exception('validate signature error', __LINE__);
+            return $state->setErrorNo(__LINE__)->setErrorMsg('validate signature error');
         }
 
         $crypt = new Crypt($aes_key, $corp_id);
         $result = $crypt->decrypt($encrypt_msg);
 
         if (!$result) {
-            throw new \Exception('decrypt fail', __LINE__);
+            return $state->setErrorNo(__LINE__)->setErrorMsg('decrypt fail');
         }
 
-        return $result;
+        return $state->setData($result);
     }
 
     /**
