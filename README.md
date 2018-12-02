@@ -55,8 +55,31 @@ $dingtalk->getDepartmentList();
 ### 获取部门列表
 
 ``` php
-//获取部门列表
 $departs = $dingtalk->getDepartmentList();
+```
+
+### 获取部门详情
+
+``` php
+
+$department_id = 1; //部门id
+$info = $dingtalk->getDepartInfo($department_id);
+```
+
+### 获取部门用户列表（详情）
+
+``` php
+
+$department_id = 1; //部门id
+$info = $dingtalk->getUserList($department_id);
+```
+
+### 获取用户信息详情
+
+``` php
+
+$userid = 1; //钉钉用户id
+$info = $dingtalk->getUser($userid);
 ```
 
 ### 发送群消息
