@@ -4,7 +4,6 @@
 ![build=passing][ico-build]
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
-[![composer][ico-composer]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
 
 钉钉开放了丰富的服务端接口能力，开发者可以借助这些接口能力，实现企业系统与钉钉的集成打通。  
