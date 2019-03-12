@@ -69,6 +69,23 @@ composer dump-autoload
 include "vendor/autoload.php";
 ```
 
+### 不使用composer
+如果确实不想使用composer，那就自己实现自动加载：   
+
+示例：
+``` php
+spl_autoload_register(function ($class){
+    if(false !== strpos($class, '\\')){
+        $file = str_replace(['\\', 'Geek'], ['/', ''],  'vendor/dingtalk/src/'. trim($class, '\\')). '.php';
+        if(file_exists($file)){
+            require_once $file;
+        }else{
+            throw new \Exception("class file {$file} not exit.");
+        }
+    }
+});
+```
+
 ## 使用示例
 首先需要到钉钉管理后台获取开发账号。详解：https://open-doc.dingtalk.com/microapp/serverapi2/hfoogs  
 
