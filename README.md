@@ -64,6 +64,11 @@ composer dump-autoload
 ```
 输出 Generating autoload files 。
 
+此时代码里需要加上：
+``` php
+include "vendor/autoload.php";
+```
+
 ## 使用示例
 首先需要到钉钉管理后台获取开发账号。详解：https://open-doc.dingtalk.com/microapp/serverapi2/hfoogs  
 
