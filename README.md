@@ -41,12 +41,13 @@ git clone git@github.com:geek-php/dingtalk.git
     }
 ```
 
-如果还没有使用过composer生成vendor目录，手动生成：
+如果还没有使用过composer生成vendor目录，手动生成：  
 1、先初始化：
 ```
 composer init
 ```
-输入你的项目名，例如`yujc/demo`。
+输入你的项目名，例如`yujc/demo`。  
+
 2、在生成的composer.json里添加：
 ``` json
 "autoload":{
@@ -88,7 +89,9 @@ $conf = [
 $dingtalk = new \Geek\DingTalk($conf);
 
 //获取部门列表
-$dingtalk->getDepartmentList();
+$list = $dingtalk->getDepartmentList();
+print_r($list);
+
 ```
 
 ## 接口
