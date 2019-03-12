@@ -10,6 +10,9 @@
 官方文档地址：https://open-doc.dingtalk.com/microapp/serverapi2
 
 ## 安装
+
+### 使用`composer`安装
+
 推荐使用`composer`安装：
 ```
 composer require geek/dingtalk
@@ -21,6 +24,44 @@ composer require geek/dingtalk
 	"geek/dingtalk": "1.0"
 },
 ```
+
+### 手动安装到vendor目录
+
+先手动下载SDK到任意目录：
+```
+git clone git@github.com:geek-php/dingtalk.git
+```
+
+如果已经存在基于composer生成的vendor目录，直接添加如下到composer.json：
+``` json
+"autoload":{
+        "psr-4":{
+            "Geek\\":"vendor/dingtalk/src/"
+        }
+    }
+```
+
+如果还没有使用过composer生成vendor目录，手动生成：
+1、先初始化：
+```
+composer init
+```
+输入你的项目名，例如`yujc/demo`。
+2、在生成的composer.json里添加：
+``` json
+"autoload":{
+        "psr-4":{
+            "Geek\\":"vendor/dingtalk/src/"
+        }
+    }
+```
+
+
+然后移动下载的SDK到vendor目录，执行：
+```
+composer dump-autoload
+```
+输出 Generating autoload files 。
 
 ## 使用示例
 首先需要到钉钉管理后台获取开发账号。详解：https://open-doc.dingtalk.com/microapp/serverapi2/hfoogs  
